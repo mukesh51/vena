@@ -1,0 +1,27 @@
+<br><br><br><br>
+<div class="ui grid">
+<div class='four wide column'></div>
+<div class='eight wide column'>
+<h2>All Users</h2>
+<div class="ui yellow message">
+  <i class="star icon"></i>
+  Look at our latest Stars !!!
+</div>
+
+<div class="ui middle aligned divided list" *ngFor="let item of items | async">
+  <div class="item">
+    <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
+    <div class="content">
+      <a class="header">{{item.firstName}} {{item.lastName}}</a>
+      <div class="description">
+        <p>{{item.joinedDate}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="ui fitted divider"></div>
+ </div>
+
+
+</div>
+<div class='four wide column'></div>
+</div>

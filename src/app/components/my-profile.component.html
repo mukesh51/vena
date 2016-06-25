@@ -1,0 +1,19 @@
+<br><br><br><br>
+<div class="ui grid">
+<div class='four wide column'></div>
+<div class='eight wide column'>
+
+<form class="ui form" (ngSubmit)="saveProfile()" novalidate>
+  <div class="field">
+    <label>First Name</label>
+    <input type="text" name="first-name" placeholder="First Name" [(ngModel)]="title" autofocus required>
+  </div>
+  <div class="field">
+    <label>Last Name</label>
+    <input type="text" name="last-name" placeholder="Last Name" [(ngModel)]="location" autofocus required>
+  </div> 
+  <button class="ui primary button" type="submit">Save</button>
+</form>
+</div>
+<div class='four wide column'></div>
+</div>

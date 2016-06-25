@@ -1,3 +1,5 @@
-<h1>
-  {{title}}
-</h1>
+<div class="ui  menu">
+	<nav-bar [authenticated]="auth.authenticated" [displayName]="auth.displayName" [displayImage]="auth.displayImage" [isAdmin]="auth.isAdmin"
+      (signOut)="signOut()"></nav-bar>
+</div>
+<router-outlet></router-outlet>

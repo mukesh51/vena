@@ -1,0 +1,21 @@
+<div class="ui secondary pointing menu"> 
+  <a class="item" [routerLink]="['/users']">
+    Users
+  </a>
+  <a class="item" [routerLink]="['/profile']">
+    Profile
+  </a>
+    <div class="ui secondary pointing menu" *ngIf="isAdmin">
+      <a class="item" [routerLink]="['/addUser']">
+        Add User
+      </a> 
+    </div> 
+  <div class="right floated menu" *ngIf="authenticated">   
+  	<a class="ui item">
+      Welcome {{displayName}} &nbsp;&nbsp; <img src= {{displayImage}} />
+    </a>
+    <a class="ui item" (click)="signOut.emit()" [routerLink]="['/']">
+      Logout
+    </a>
+  </div>
+</div>

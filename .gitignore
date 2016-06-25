@@ -27,3 +27,9 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+#firebase and vscode editor config files 
+.firebaserc
+firebase.json
+.editorconfig
+src/app/resources/static/
