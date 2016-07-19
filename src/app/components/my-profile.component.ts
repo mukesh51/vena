@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import {ControlGroup, Validators, FormBuilder} from '@angular/common';
 import { ProfileService } from '../services/profile/index';
 import { Profile } from '../services/profile/profile';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
@@ -15,42 +16,47 @@ export class MyProfile {
   location: string = '';
   profileItem: FirebaseListObservable<any>;
   profile: any[];
+  form: ControlGroup;
 
-  constructor(private _profileService: ProfileService,private auth: AuthService, private router: Router, af: AngularFire) {
-  	if(auth.id) {
-  		console.log("ID INSIDE MY PROFILE"+auth.id);
-  	this.profileItem = _profileService.retrieveProfile(auth.id,af);
-  	this.profileItem.subscribe(snapshot => {
-  		this.profile = snapshot;
-  		console.log(this.profile);  		
-  		this.profile.forEach(x => {
-  			if (x.$key === 'title') {
-  				this.title = x.$value;	
-  			}
-  			if( x.$key === 'location') {
-  				this.location = x.$value;	
-  			}  			  			
-  		});  		
-  		})
-  } else {
-  	this.router.navigate(['/']);
+  constructor(private _fb: FormBuilder, 
+              private _profileService: ProfileService,
+              private _auth: AuthService, 
+              private _router: Router, 
+              private _af: AngularFire) {
+
+              this.form = _fb.group({
+                  firstName:  ['', Validators.required],
+                  lastName:   ['', Validators.required]    
+              })
+
+              this.renderProfile();  	
   }
-  	
+
+  renderProfile() {
+      if(this._auth.id) {
+        console.log("ID INSIDE MY PROFILE"+this._auth.id);
+      this.profileItem = this._profileService.retrieveProfile(this._auth.id,this._af);
+      this.profileItem.subscribe(snapshot => {
+        this.profile = snapshot;
+        console.log(this.profile);  		
+        this.profile.forEach(x => {
+          if (x.$key === 'title') {
+            this.title = x.$value;	
+          }
+          if( x.$key === 'location') {
+            this.location = x.$value;	
+          }  			  			
+        });  		
+        })
+    } else {      
+      this._router.navigateByUrl('/signIn');
+    }
   } 
 
-  clear(): void {
-    this.title = '';
-    this.location = '';
-  }
-
-  saveProfile(): void {
-    const title: string = this.title.trim();
-    const location: string = this.location.trim();
-    if (title.length && location.length) {
-    	let newProfile = new Profile(title,location);      
+  saveProfile(): void {    
+    	let newProfile = new Profile(this.form.find('firstName').value,this.form.find('lastName').value);      
       this._profileService.createProfile(newProfile);
-    }
-    this.router.navigate(['/profile']);
+      this._router.navigate(['/profile']);
   }
 
 }

@@ -1,23 +1,63 @@
-<br><br><br><br>
-<div class="ui grid">
-<div class='four wide column'></div>
-<div class='eight wide column'>
-
-<form class="ui form" (ngSubmit)="createUser()" novalidate>
-  <div class="field">
-    <label>First Name</label>
-    <input type="text" name="first-name" placeholder="First Name" [(ngModel)]="firstName" autofocus required>
-  </div>
-  <div class="field">
-    <label>Last Name</label>
-    <input type="text" name="last-name" placeholder="Last Name" [(ngModel)]="lastName" autofocus required>
-  </div> 
-  <div class="field">
-    <label>Joined Date</label>
-    <input type="text" name="last-name" placeholder="Last Name" [(ngModel)]="joinedDate" autofocus required>
-  </div> 
-  <button class="ui primary button" type="submit">Add User</button>
-</form>
-</div>
-<div class='four wide column'></div>
+<div class="ui grid form">
+    <div class='four wide column'></div>
+    <div class='eight wide column fields'>
+        <form [ngFormModel]="form"  (ngSubmit)="createUser()" >
+            <div class="field">
+                <label>First Name</label>
+                <input 
+                    type="text" 
+                    id="firstName"        
+                    ngControl="firstName"
+                    #firstName="ngForm">
+                    <div
+                        *ngIf="firstName.touched && !firstName.valid" 
+                        class="ui red header">
+                        <h5>First Name is required.</h5>
+                    </div>
+            </div>
+            <div class="field">
+                <label>Last Name</label>
+                <input 
+                    type="text" 
+                    id="lastName"    
+                    ngControl="lastName"
+                    #lastName="ngForm">
+                    <div
+                        *ngIf="lastName.touched && !lastName.valid" 
+                        class="ui red header">
+                        <h5>Last Name is required.</h5>
+                    </div>
+            </div> 
+            <div class="field">
+                <label>Joined Date</label>
+                <input 
+                    type="text" 
+                    id="joinedDate"
+                    ngControl="joinedDate"
+                    #joinedDate="ngForm">
+                    <div
+                        *ngIf="joinedDate.touched && !joinedDate.valid" 
+                        class="ui red header">
+                        <h5>Join Date is required.</h5>
+                    </div>
+            </div> 
+            <div class="field">
+                <label>Upload Your Image</label>
+                <input 
+                    type="file" 
+                    id="imageInput"
+                    ngControl="imageInput"
+                    #imageInput="ngForm"
+                    (change)="selectImage($event)">        
+                    <div>
+                        <br/><br/>
+                        <img id="previewImage" 
+                             [class.customImageClass]="baseImgReturned" 
+                             [src]="baseImgReturned ? baseImg : ''"/>
+                    </div>
+            </div> 
+            <button class="ui primary button" type="submit" [disabled]="!form.valid">Add User</button>
+        </form>
+    </div>
+    <div class='four wide column'></div>
 </div>

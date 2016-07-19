@@ -28,12 +28,5 @@ export class ProfileService {
   createUser(user: IUser): Promise<any> {
     return this.userItemAsList$.push(user);
   }
-
-  // removeProfile(myProfile: IProfile): Promise<any> {
-  //   return this.profileItem$.remove(myProfile.$key);
-  // }
-
-  // updateProfile(myProfile: IProfile, changes: any): Promise<any> {
-  //   return this.profileItem$.update(myProfile.$key, changes);
-  // }
+  
 }

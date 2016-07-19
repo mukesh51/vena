@@ -1,4 +1,4 @@
-<br><br><br><br>
+
 <div class="ui grid">
 <div class='four wide column'></div>
 <div class='eight wide column'>
@@ -8,13 +8,13 @@
   Look at our latest Stars !!!
 </div>
 
-<div class="ui middle aligned divided list" *ngFor="let item of items | async">
+<div class="ui middle aligned divided list" *ngFor="let user of users | async">
   <div class="item">
-    <img class="ui avatar image" src="/images/avatar/small/daniel.jpg">
+    <img class="ui avatar image" src="{{user.imagePath}}">
     <div class="content">
-      <a class="header">{{item.firstName}} {{item.lastName}}</a>
+      <a class="header">{{user.firstName}} {{user.lastName}}</a>
       <div class="description">
-        <p>{{item.joinedDate}}</p>
+        <p>{{user.joinedDate}}</p>
       </div>
     </div>
   </div>

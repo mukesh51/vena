@@ -1,42 +1,55 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import {ControlGroup, Validators, FormBuilder} from '@angular/common';
 import { ProfileService } from '../services/profile/index';
 import { User } from '../services/profile/user';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import { AuthRouteHelper, AuthService } from '../services/auth/index';
+import { FirebaseListObservable } from 'angularfire2';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'add-user',
-  templateUrl: 'app/components/add-user.component.html'  
+  templateUrl: 'app/components/add-user.component.html',
+  styles: [`
+    .customImageClass {
+      height: 150px;
+      width: 150px;
+    }
+  `]
 })
 export class AddUser {
+  baseImg;
+  baseImgReturned: boolean = false;
+  userItem: FirebaseListObservable<any>;  
+  form: ControlGroup;
 
-  firstName: string = '';
-  lastName: string = '';
-  joinedDate: string = '';
-  userItem: FirebaseListObservable<any>;
-  user: any[];
-
-  constructor(private _profileService: ProfileService,private auth: AuthService, private router: Router, af: AngularFire) { 	
-  	
-  } 
-
-  clear(): void {
-    this.firstName = '';
-    this.lastName = '';
-    this.joinedDate = '';
+  constructor(
+        private _fb: FormBuilder, 
+        private _profileService: ProfileService,         
+        private _router: Router) {
+      this.form = _fb.group({
+        firstName:  ['', Validators.required],
+        lastName:   ['', Validators.required],
+        joinedDate: ['', Validators.required],
+        imageInput: []
+      })  	
   }
-
-  createUser(): void {
-    const firstName: string = this.firstName.trim();
-    const lastName: string = this.lastName.trim();
-    const joinedDate: string = this.joinedDate.trim();
-
-    if (firstName.length && lastName.length) {
-    	let newUser = new User(firstName,lastName,joinedDate);      
+  
+  createUser(): void {    
+    	let newUser = new User(
+          this.form.find('firstName').value,
+          this.form.find('lastName').value,
+          this.form.find('joinedDate').value,
+          this.baseImg
+        );      
       this._profileService.createUser(newUser);
-    }
-    this.router.navigate(['/users']);
+      this._router.navigate(['/users']);
   }
 
+  selectImage($event) {
+    var reader = new FileReader();
+    reader.onloadend = () => {
+      this.baseImg = reader.result;
+      this.baseImgReturned = true;      
+    }    
+    reader.readAsDataURL($event.target.files[0]);
+  }
 }

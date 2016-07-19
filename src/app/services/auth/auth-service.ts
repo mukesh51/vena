@@ -4,6 +4,7 @@ import {AuthProviders, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
 @Injectable()
 export class AuthService {
     private authState: FirebaseAuthState;
+        
 
     constructor(public auth$: FirebaseAuth) {
         this.authState = auth$.getAuth();
@@ -11,6 +12,8 @@ export class AuthService {
         auth$.subscribe((state: FirebaseAuthState) => {
             this.authState = state;
         });
+
+        
     }
 
     get authenticated(): boolean {        

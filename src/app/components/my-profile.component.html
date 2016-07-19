@@ -1,18 +1,37 @@
-<br><br><br><br>
 <div class="ui grid">
 <div class='four wide column'></div>
 <div class='eight wide column'>
 
-<form class="ui form" (ngSubmit)="saveProfile()" novalidate>
+<form class="ui form" (ngSubmit)="saveProfile()" [ngFormModel]="form">
   <div class="field">
     <label>First Name</label>
-    <input type="text" name="first-name" placeholder="First Name" [(ngModel)]="title" autofocus required>
+    <input 
+          type="text" 
+          id="firstName"        
+          ngControl="firstName"
+          #firstName="ngForm" 
+          [(ngModel)]="title">
+          <div
+            *ngIf="firstName.touched && !firstName.valid" 
+            class="ui red header">
+            <h5>First Name is required.</h5>
+          </div>
   </div>
   <div class="field">
-    <label>Last Name</label>
-    <input type="text" name="last-name" placeholder="Last Name" [(ngModel)]="location" autofocus required>
+    <label>City</label>
+    <input 
+          type="text"
+          id="lastName"        
+          ngControl="lastName"
+          #lastName="ngForm"           
+          [(ngModel)]="location">
+          <div
+            *ngIf="lastName.touched && !lastName.valid" 
+            class="ui red header">
+            <h5>Location is required.</h5>
+        </div>
   </div> 
-  <button class="ui primary button" type="submit">Save</button>
+  <button class="ui primary button" type="submit" [disabled]="!form.valid">Save</button>
 </form>
 </div>
 <div class='four wide column'></div>

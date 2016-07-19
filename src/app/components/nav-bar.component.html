@@ -14,7 +14,7 @@
   	<a class="ui item">
       Welcome {{displayName}} &nbsp;&nbsp; <img src= {{displayImage}} />
     </a>
-    <a class="ui item" (click)="signOut.emit()" [routerLink]="['/']">
+    <a class="ui item" (click)="signOut.emit()" [routerLink]="['signIn']">
       Logout
     </a>
   </div>
