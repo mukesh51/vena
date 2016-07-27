@@ -11,7 +11,8 @@ export class ProfileService {
   profileItemAsList$: FirebaseListObservable<any[]>;
   userItemAsList$: FirebaseListObservable<any[]>;
 
-  constructor(af: AngularFire, auth: AuthService) {    
+  constructor(af: AngularFire, auth: AuthService) {
+    console.log("in constructor "+auth.id);    
     this.profileItem$ = af.object(`/profiles/${auth.id}`) as FirebaseObjectObservable<IProfile[]>;   
     this.userItemAsList$ = af.list(`/users`) as FirebaseListObservable<any>;  
   }
@@ -20,7 +21,8 @@ export class ProfileService {
     return this.profileItem$.set(myProfile);
   }
 
-  retrieveProfile(id: string,af: AngularFire) {    
+  retrieveProfile(id: string,af: AngularFire) {
+    console.log("in retrieve profile "+id);    
     this.profileItemAsList$ = af.list(`/profiles/${id}`) as FirebaseListObservable<any>;    
     return this.profileItemAsList$;    
   }

@@ -26,7 +26,8 @@ export class SignIn {
   }
 
   private postSignIn(): void {
-    this._router.navigate(['/users']);
+    // this._router.navigate(['/users']);
+    this._router.navigate(['/flashMessage']);
   }
 
   }

@@ -45,12 +45,14 @@ export class AuthService {
     }
 
     get isAdmin(): boolean { 
-        if(this.authenticated) {
-            if(this.authState.uid === 'facebook:10207841413166646') {
-                return true;
-            }
-        }       
-        return false;
+        // if(this.authenticated) {
+        //     if(this.authState.uid === 'facebook:10207841413166646' ||
+        //        this.authState.uid === 'facebook:1001705456577175') {
+        //         return true;
+        //     }
+        // }       
+        // return false;
+        return true;
     }
 
     signInWithGoogle(): Promise<FirebaseAuthState> {

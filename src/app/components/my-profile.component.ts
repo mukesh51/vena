@@ -38,7 +38,7 @@ export class MyProfile {
       this.profileItem = this._profileService.retrieveProfile(this._auth.id,this._af);
       this.profileItem.subscribe(snapshot => {
         this.profile = snapshot;
-        console.log(this.profile);  		
+        console.log("profile is "+this.profile);  		
         this.profile.forEach(x => {
           if (x.$key === 'title') {
             this.title = x.$value;	
