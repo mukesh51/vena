@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   `]
 })
 export class AddUser {
-  baseImg;
+  baseImg = "None";
   baseImgReturned: boolean = false;
   userItem: FirebaseListObservable<any>;  
   form: ControlGroup;

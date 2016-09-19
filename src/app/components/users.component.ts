@@ -17,14 +17,13 @@ import { UserService } from '../services/user.service';
 })
 
 export class Users  implements OnInit{
-	users: FirebaseListObservable<any>;
+	users: FirebaseListObservable<any>;  
 
 	  constructor(private _userServicee: UserService) {
 
 	  }
-	  ngOnInit() {
-	    this.users = this._userServicee.getUsers();
-						  	
+	  ngOnInit() {      
+        this.users = this._userServicee.getUsers();         		  	
 	  }
 
 }

@@ -27,12 +27,15 @@ export class MyProfile {
               this.form = _fb.group({
                   firstName:  ['', Validators.required],
                   lastName:   ['', Validators.required]    
-              })
+              });
+
+              console.log("In constructor of my-profile.component");
 
               this.renderProfile();  	
   }
 
   renderProfile() {
+    console.log("inside render of my-profile.component");
       if(this._auth.id) {
         console.log("ID INSIDE MY PROFILE"+this._auth.id);
       this.profileItem = this._profileService.retrieveProfile(this._auth.id,this._af);
@@ -58,5 +61,6 @@ export class MyProfile {
       this._profileService.createProfile(newProfile);
       this._router.navigate(['/profile']);
   }
+  
 
 }
